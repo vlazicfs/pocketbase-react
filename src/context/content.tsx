@@ -8,7 +8,7 @@ import { subscriptionsAction } from '../store/actions';
 
 type SubscribeType = (collectionName: string) => Promise<void>;
 type UnsubscribeType = (collectionName?: string) => Promise<void>;
-type FetchType = (collectionName: string) => Promise<void>;
+type FetchType = (collectionName: string, opts?: any) => Promise<void>;
 type CreateType = (collectionName: string, record: {}) => Promise<void | Record | undefined>;
 type UpdateType = (
   collectionName: string,
@@ -89,20 +89,17 @@ export const ContentProvider = (props: ContentProviderProps) => {
           .catch(tempErrorHandler);
       }
     },
-    fetch: async (collectionName: string) => {
+    fetch: async (collectionName: string, opts: any = {}) => {
       await client
         ?.collection(collectionName)
-        .getFullList(200)
+        .getFullList(200, opts)
         .then((records) => {
           dispatch(recordsAction.setRecords(collectionName, records as Record[]));
         })
         .catch(tempErrorHandler);
     },
     create: async (collectionName: string, record: {}) => {
-      return await client
-        ?.collection(collectionName)
-        .create(record)
-        .catch(tempErrorHandler);
+      return await client?.collection(collectionName).create(record).catch(tempErrorHandler);
     },
     update: async (collectionName: string, recordId: string, record: {}) => {
       return await client
@@ -111,10 +108,7 @@ export const ContentProvider = (props: ContentProviderProps) => {
         .catch(tempErrorHandler);
     },
     delete: async (collectionName: string, recordId: string) => {
-      return await client
-        ?.collection(collectionName)
-        .delete(recordId)
-        .catch(tempErrorHandler);
+      return await client?.collection(collectionName).delete(recordId).catch(tempErrorHandler);
     },
   };
 

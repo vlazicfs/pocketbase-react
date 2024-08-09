@@ -5,7 +5,7 @@ import { useAppSelector } from '../store';
 
 export type SubscribeType = () => Promise<void | undefined>;
 export type UnsubscribeType = () => Promise<void | undefined>;
-export type FetchType = () => Promise<void | undefined>;
+export type FetchType = (opts: any) => Promise<void | undefined>;
 export type CreateType = (record: {}) => Promise<void | Record | undefined>;
 export type UpdateType = (id: string, record: {}) => Promise<void | Record | undefined>;
 export type DeleteType = (id: string) => Promise<void | boolean | undefined>;
@@ -44,7 +44,7 @@ export function useAppContent<T extends Record>(
   const actions: Actions = {
     subscribe: async () => await context.subscribe(collectionName),
     unsubscribe: async () => await context.unsubscribe(collectionName),
-    fetch: async () => await context.fetch(collectionName),
+    fetch: async (opts: any) => await context.fetch(collectionName, opts),
     create: async (record: {}) => await context.create(collectionName, record),
     update: async (id: string, record: {}) => await context.update(collectionName, id, record),
     delete: async (id: string) => await context.delete(collectionName, id),
