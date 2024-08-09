@@ -56,6 +56,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
         email: email,
         password: password,
         passwordConfirm: password,
+        emailVisibility: true,
       });
     },
     signInWithEmail: async (email: string, password: string) => {

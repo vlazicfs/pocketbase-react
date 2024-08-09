@@ -11,7 +11,8 @@ export const AuthProvider = props => {
       await (client == null ? void 0 : client.collection('users').create({
         email: email,
         password: password,
-        passwordConfirm: password
+        passwordConfirm: password,
+        emailVisibility: true
       }));
     },
     signInWithEmail: async (email, password) => {
