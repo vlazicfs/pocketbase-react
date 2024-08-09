@@ -1,7 +1,7 @@
 node_modules
-dist
-es
-lib
+# dist
+# es
+# lib
 .DS_Store
 **/*.lock
 
